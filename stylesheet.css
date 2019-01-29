@@ -1,12 +1,27 @@
 * {
 	font-family:'Anton', sans-serif;
+	font-weight: 400;
 	margin: 0px;
 	padding: 0px;
 	text-transform: uppercase;
 }
 
+.menu {
+	background-color: red;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+}
+
 h2 {
-	margin-left: 15px;
+	margin: 0px 15px;
+	color: white;
+	flex: 0 1 auto;
+}
+
+.title {
+	flex: 1 1 50%;
+	text-align: right;
 }
 
 .player-item, .reset {

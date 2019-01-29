@@ -17,6 +17,7 @@ function setup(){
 
 function draw() {
   background(bgR, bgG, bgB);
+  pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
   displaySelectedItem();
   computerPlay();
   if (computer.readyToPlay && presentSeletedItem) {
@@ -26,8 +27,8 @@ function draw() {
 
 const itemFunctionMap = {
   "rock": () => {box()},
-  "paper": () => {sphere()},
-  "scissors": () => {torus()}
+  "paper": () => {plane(100, 80)},
+  "scissors": () => {cone()}
 }
 
 function displayWin(){
@@ -72,18 +73,26 @@ function playHasBeenClicked(x){
 // GRAPHICS DISPLAY
 //===========================
 
+
+function itemRotateAndFill(){
+  normalMaterial();
+  noStroke();
+  rotateX(frameCount*0.05);
+  rotateZ(frameCount*0.05);
+}
+
 function playerItemPositionRender(){
-    push();
-      translate(windowWidth/4*-1, 0, 0);
-      rotateX(frameCount*0.1);
-      rotateZ(frameCount*0.1);
+  fill(100);
+  push();
+    translate(windowWidth/4*-1, 0, 0);
+    itemRotateAndFill();
 }
 
 function computerItemPositionRender(){
+  fill(100);
     push();
       translate(windowWidth/4, 0, 0);
-      rotateX(frameCount*0.1);
-      rotateZ(frameCount*0.1);
+      itemRotateAndFill();
 }
 
 function displaySelectedItem(){
