@@ -1,0 +1,40 @@
+* {
+	font-family:'Anton', sans-serif;
+	margin: 0px;
+	padding: 0px;
+	text-transform: uppercase;
+}
+
+h2 {
+	margin-left: 15px;
+}
+
+.player-item, .reset {
+	display: inline-block;
+}
+
+canvas {
+	margin: 0px;
+	padding: 0px;
+}
+
+.flex-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.flex-item{
+	flex: 1 1 auto;
+	margin: 0px 15px;
+
+}
+
+/*.one {
+	background-color: red;
+}
+
+.two {
+	background-color: blue;
+}*/
