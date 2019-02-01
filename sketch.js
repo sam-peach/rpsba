@@ -10,9 +10,16 @@ var bgB = 255;
 // ENVIRONMENT SET UP
 //==========================
 
+function preload() {
+  rockObj = loadModel('assets/rock.obj');
+  paperObj = loadModel('assets/paper.obj');
+  scissorsObj = loadModel('assets/scissors.obj');
+}
+
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
   computer.itemSelectorIndex = Math.floor(Math.random() * 3);
+  console.log('canvas loaded NEW');
 }
 
 function draw() {
@@ -23,12 +30,20 @@ function draw() {
   if (computer.readyToPlay && presentSeletedItem) {
     displayGameResults();
   }
+ // rockDis();
+}
+
+function objDisplay(x){
+	push()
+	scale(50);
+	model(x);
+	pop();
 }
 
 const itemFunctionMap = {
-  "rock": () => {box()},
-  "paper": () => {plane(100, 80)},
-  "scissors": () => {cone()}
+  "rock": () => {objDisplay(rockObj)},
+  "paper": () => {objDisplay(paperObj)},
+  "scissors": () => {objDisplay(scissorsObj)}
 }
 
 function displayWin(){
@@ -59,6 +74,7 @@ function resetGame(reset){
 
 function playHasBeenClicked(x){
   var computerReady;
+  console.log('Button has been clicked');
   if (x == true && presentSeletedItem != false){
     let buttons = document.getElementsByClassName("player-item");
     for (let i = 0; i < buttons.length; i++){
@@ -82,8 +98,8 @@ function itemRotateAndFill(){
 }
 
 function playerItemPositionRender(){
+ 	
   fill(100);
-  push();
     translate(windowWidth/4*-1, 0, 0);
     itemRotateAndFill();
 }
