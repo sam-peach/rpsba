@@ -3,9 +3,6 @@ var computer = {
   readyToPlay: false,
   itemSelectorIndex: 0
 };
-var bgR = 255;
-var bgG = 255;
-var bgB = 255;
 
 // ENVIRONMENT SET UP
 //==========================
