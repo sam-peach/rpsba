@@ -5,7 +5,8 @@ var computer = {
 };
 
 // ENVIRONMENT SET UP
-//==========================
+//==========================\
+
 
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -21,6 +22,9 @@ function draw() {
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
   displaySelectedItem();
   computerPlay();
+
+  // var checker = document.getElementsByClassName("player-item")[0];
+  // console.log(checker);
 }
 
 function displayWin(){
@@ -41,12 +45,23 @@ function itemHasBeenClicked(item){
 function resetGame(reset){
   console.log("I'm being reset");
   if(reset){
-    window.location.reload();
+    //window.location.reload();
+    presentSeletedItem = null;
+    computer.readyToPlay = false;
+    computer.itemSelectorIndex = Math.floor(Math.random() * 3);
+    let buttons = document.getElementsByClassName("player-item");
+    for (let i = 0; i < buttons.length-1; i++){
+      let value = buttons[i].innerHTML
+      buttons[i].setAttribute("onclick", "itemHasBeenClicked("+value+")");
+    }
+    let playBtn = document.getElementsByClassName("play");
+    playBtn[0].setAttribute("onclick", "playHasBeenClicked(true)")
+    background(255);
   }
 }
 
 function playHasBeenClicked(x){
-  if (x == true && presentSeletedItem != false){
+  if (x == true && presentSeletedItem != null){
     let buttons = document.getElementsByClassName("player-item");
     for (let i = 0; i < buttons.length; i++){
       buttons[i].setAttribute("onclick", "");
@@ -65,7 +80,7 @@ function displaySelectedItem(){
   	presentSeletedItem.playerPositionRender();
   	presentSeletedItem.materialAndRotation();
   	presentSeletedItem.display();
-  }
+  } else{}
 }
 
 function displayGameResults() {
@@ -112,7 +127,7 @@ function computerNumberToItem(x) {
   } else if (x == 1){
     i = paper;
   } else if (x == 2){
-    i = scissor;
+    i = scissors;
   }
   return i;
 }
