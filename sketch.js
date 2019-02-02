@@ -10,41 +10,43 @@ var bgB = 255;
 // ENVIRONMENT SET UP
 //==========================
 
-function preload() {
-  rockObj = loadModel('assets/rock.obj');
-  paperObj = loadModel('assets/paper.obj');
-  scissorsObj = loadModel('assets/scissors.obj');
-}
-
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
+  scissors = new Model('scissors');
+  paper = new Model('paper');
+  rock = new Model('rock');
   computer.itemSelectorIndex = Math.floor(Math.random() * 3);
-  console.log('canvas loaded NEW');
 }
 
 function draw() {
   background(bgR, bgG, bgB);
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
+
   displaySelectedItem();
   computerPlay();
   if (computer.readyToPlay && presentSeletedItem) {
     displayGameResults();
   }
- // rockDis();
 }
 
-function objDisplay(x){
-	push()
-	scale(50);
-	model(x);
-	pop();
-}
 
 const itemFunctionMap = {
-  "rock": () => {objDisplay(rockObj)},
-  "paper": () => {objDisplay(paperObj)},
-  "scissors": () => {objDisplay(scissorsObj)}
+  "rock": () => {
+  	// rock.playerPositionRender();
+ 	rock.materialAndRotation();
+  	rock.display();
+},
+  "paper": () => {
+  	// paper.playerPositionRender();
+ 	paper.materialAndRotation();
+  	paper.display()
+  },
+  "scissors": () => {
+  	// scissors.playerPositionRender();
+ 	scissors.materialAndRotation();
+  	scissors.display()}
 }
+
 
 function displayWin(){
   bgR = 0;
@@ -89,34 +91,10 @@ function playHasBeenClicked(x){
 // GRAPHICS DISPLAY
 //===========================
 
-
-function itemRotateAndFill(){
-  normalMaterial();
-  noStroke();
-  rotateX(frameCount*0.05);
-  rotateZ(frameCount*0.05);
-}
-
-function playerItemPositionRender(){
- 	
-  fill(100);
-    translate(windowWidth/4*-1, 0, 0);
-    itemRotateAndFill();
-}
-
-function computerItemPositionRender(){
-  fill(100);
-    push();
-      translate(windowWidth/4, 0, 0);
-      itemRotateAndFill();
-}
-
 function displaySelectedItem(){
   if(itemFunctionMap[presentSeletedItem]){
-    playerItemPositionRender();
+  	rock.playerPositionRender();
     itemFunctionMap[presentSeletedItem]();
-    pop();
-
   }
 }
 
@@ -165,8 +143,7 @@ function computerNumberToItem(x) {
 function computerItemLoader(){
   let i = computerNumberToItem(computer.itemSelectorIndex);
   if(itemFunctionMap[i]){
-    computerItemPositionRender();
+  	rock.computerPositionRender();
     itemFunctionMap[i]();
-    pop();
   }
 }
