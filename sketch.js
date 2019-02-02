@@ -1,4 +1,4 @@
-var presentSeletedItem = "";
+var presentSeletedItem = null;
 var computer = {
   readyToPlay: false,
   itemSelectorIndex: 0
@@ -21,31 +21,7 @@ function draw() {
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
   displaySelectedItem();
   computerPlay();
-  
-  // if (computer.readyToPlay && presentSeletedItem) {
-  //   displayGameResults();
-  // }
-
 }
-
-
-const itemFunctionMap = {
-  "rock": () => {
-  	// rock.playerPositionRender();
- 	rock.materialAndRotation();
-  	rock.display();
-},
-  "paper": () => {
-  	// paper.playerPositionRender();
- 	paper.materialAndRotation();
-  	paper.display()
-  },
-  "scissors": () => {
-  	// scissors.playerPositionRender();
- 	scissors.materialAndRotation();
-  	scissors.display()}
-}
-
 
 function displayWin(){
   background(46, 211, 74);
@@ -85,9 +61,10 @@ function playHasBeenClicked(x){
 //===========================
 
 function displaySelectedItem(){
-  if(itemFunctionMap[presentSeletedItem]){
-  	rock.playerPositionRender();
-    itemFunctionMap[presentSeletedItem]();
+  if (presentSeletedItem) {
+  	presentSeletedItem.playerPositionRender();
+  	presentSeletedItem.materialAndRotation();
+  	presentSeletedItem.display();
   }
 }
 
@@ -122,22 +99,20 @@ function displayGameResults() {
 function computerPlay(){
   if (computer.readyToPlay) {
     let i = computerNumberToItem(computer.itemSelectorIndex);
-
-  	if(itemFunctionMap[i]){
-  	rock.computerPositionRender();
-    itemFunctionMap[i]();
-  	}
+    i.computerPositionRender();
+    i.materialAndRotation();
+    i.display();
   }
 }
 
 function computerNumberToItem(x) {
   let i = ""
   if (x == 0) {
-    i = "rock";
+    i = rock;
   } else if (x == 1){
-    i = "paper";
+    i = paper;
   } else if (x == 2){
-    i = "scissors";
+    i = scissor;
   }
   return i;
 }
