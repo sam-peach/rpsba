@@ -7,14 +7,13 @@ var computer = {
 // ENVIRONMENT SET UP
 //==========================\
 
-
 function setup(){
   createCanvas(windowWidth, windowHeight, WEBGL);
   scissors = new Model('scissors');
   paper = new Model('paper');
   rock = new Model('rock');
-  computer.itemSelectorIndex = Math.floor(Math.random() * 3);
-  background(255);
+  resetState();
+  
 }
 
 function draw() {
@@ -22,17 +21,20 @@ function draw() {
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
   displaySelectedItem();
   computerPlay();
-
-  // var checker = document.getElementsByClassName("player-item")[0];
-  // console.log(checker);
 }
 
-function displayWin(){
-  background(46, 211, 74);
-}
-
-function displayLose(){
-  background(221, 35, 63);
+function resetState(){	
+  presentSeletedItem = null;
+  computer.readyToPlay = false;
+  computer.itemSelectorIndex = Math.floor(Math.random() * 3);
+  let buttons = document.getElementsByClassName("player-item");
+  for (let i = 0; i < buttons.length-1; i++){
+  let value = buttons[i].innerHTML
+  buttons[i].setAttribute("onclick", "itemHasBeenClicked("+value+")");
+  }
+  let playBtn = document.getElementsByClassName("play");
+  playBtn[0].setAttribute("onclick", "playHasBeenClicked(true)")
+  background(255);
 }
 
 // USER INPUTS
@@ -43,20 +45,8 @@ function itemHasBeenClicked(item){
 }
 
 function resetGame(reset){
-  console.log("I'm being reset");
   if(reset){
-    //window.location.reload();
-    presentSeletedItem = null;
-    computer.readyToPlay = false;
-    computer.itemSelectorIndex = Math.floor(Math.random() * 3);
-    let buttons = document.getElementsByClassName("player-item");
-    for (let i = 0; i < buttons.length-1; i++){
-      let value = buttons[i].innerHTML
-      buttons[i].setAttribute("onclick", "itemHasBeenClicked("+value+")");
-    }
-    let playBtn = document.getElementsByClassName("play");
-    playBtn[0].setAttribute("onclick", "playHasBeenClicked(true)")
-    background(255);
+  	resetState();
   }
 }
 
@@ -103,9 +93,17 @@ function displayGameResults() {
 	    background(169, 218, 229);
 	  }
   } else {
-  		background (255);
+  	background (255);
   }
 
+}
+
+function displayWin(){
+  background(46, 211, 74);
+}
+
+function displayLose(){
+  background(221, 35, 63);
 }
 
 // COMPUTER FUNCTIONS
