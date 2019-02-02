@@ -16,17 +16,19 @@ function setup(){
   paper = new Model('paper');
   rock = new Model('rock');
   computer.itemSelectorIndex = Math.floor(Math.random() * 3);
+  background(255);
 }
 
 function draw() {
-  background(bgR, bgG, bgB);
+  displayGameResults();
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
-
   displaySelectedItem();
   computerPlay();
-  if (computer.readyToPlay && presentSeletedItem) {
-    displayGameResults();
-  }
+  
+  // if (computer.readyToPlay && presentSeletedItem) {
+  //   displayGameResults();
+  // }
+
 }
 
 
@@ -49,15 +51,11 @@ const itemFunctionMap = {
 
 
 function displayWin(){
-  bgR = 0;
-  bgG = 255;
-  bgB = 0;
+  background(46, 211, 74);
 }
 
 function displayLose(){
-  bgR = 255;
-  bgG = 0;
-  bgB = 0;
+  background(221, 35, 63);
 }
 
 // USER INPUTS
@@ -75,8 +73,6 @@ function resetGame(reset){
 }
 
 function playHasBeenClicked(x){
-  var computerReady;
-  console.log('Button has been clicked');
   if (x == true && presentSeletedItem != false){
     let buttons = document.getElementsByClassName("player-item");
     for (let i = 0; i < buttons.length; i++){
@@ -99,22 +95,26 @@ function displaySelectedItem(){
 }
 
 function displayGameResults() {
-  var compReult = computerNumberToItem(computer.itemSelectorIndex);
-  if (compReult != presentSeletedItem) {
-    if (compReult == "rock" && presentSeletedItem == "scissors") {
-      displayLose();
-    } else if (compReult == "paper" && presentSeletedItem == "rock") {
-      displayLose();
-    } else if (compReult == "scissors" && presentSeletedItem == "paper") {
-      displayLose();
-    } else {
-      displayWin();
-    }
-    
+
+  let compReult = computerNumberToItem(computer.itemSelectorIndex);
+
+  if (computer.readyToPlay) {
+	  if (compReult != presentSeletedItem) {
+	    if (compReult == "rock" && presentSeletedItem == "scissors") {
+	      displayLose();
+	    } else if (compReult == "paper" && presentSeletedItem == "rock") {
+	      displayLose();
+	    } else if (compReult == "scissors" && presentSeletedItem == "paper") {
+	      displayLose();
+	    } else {
+	      displayWin();
+	    }
+	    
+	  } else if (compReult == presentSeletedItem) {
+	    background(169, 218, 229);
+	  }
   } else {
-    bgR = 100;
-    bgG = 100;
-    bgB = 100;
+  		background (255);
   }
 
 }
@@ -124,7 +124,12 @@ function displayGameResults() {
 
 function computerPlay(){
   if (computer.readyToPlay) {
-    computerItemLoader();
+    let i = computerNumberToItem(computer.itemSelectorIndex);
+
+  	if(itemFunctionMap[i]){
+  	rock.computerPositionRender();
+    itemFunctionMap[i]();
+  	}
   }
 }
 
@@ -138,12 +143,4 @@ function computerNumberToItem(x) {
     i = "scissors";
   }
   return i;
-}
-
-function computerItemLoader(){
-  let i = computerNumberToItem(computer.itemSelectorIndex);
-  if(itemFunctionMap[i]){
-  	rock.computerPositionRender();
-    itemFunctionMap[i]();
-  }
 }
