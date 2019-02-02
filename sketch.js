@@ -106,7 +106,7 @@ function computerPlay(){
 }
 
 function computerNumberToItem(x) {
-  let i = ""
+  let i = null;
   if (x == 0) {
     i = rock;
   } else if (x == 1){

@@ -1,3 +1,6 @@
 # rpsba
 Rock, paper, scissors, but awesome.
-Oi oi!
+
+Dreamt up to test some WebGl ideas.
+
+Enjoy!
