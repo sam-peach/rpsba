@@ -21,6 +21,7 @@ function setup(){
 }
 
 function draw() {
+  background(255);
   displayGameResults();
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
   displaySelectedItem();
@@ -86,9 +87,6 @@ function displaySelectedItem(){
 }
 
 function displayGameResults() {
-
-  // compReult = computerNumberToItem(computer.itemSelectorIndex);
-  
   if (computer.readyToPlay) {
 	  if (computer.itemName != presentSeletedItem) {
 	    if (computer.itemName == rock && presentSeletedItem == scissors) {
@@ -113,18 +111,12 @@ function displayGameResults() {
 
 function displayResult(result){
   if (result == 'win'){
-	  background(46, 211, 74);
-	  // winObj.materialAndRotation();
 	  winObj.resultPositionRender();
 	  winObj.display();
-  } else if (result == 'lose') {
-  	  background(221, 35, 63);
-  	  // loseObj.materialAndRotation();
+  } else if (result == 'lose') {;
   	  loseObj.resultPositionRender();
   	  loseObj.display();
   } else if (result == 'draw') {
-  	  background(169, 218, 229);
-  	  // drawObj.materialAndRotation();
   	  drawObj.resultPositionRender();
   	  drawObj.display();
   }
