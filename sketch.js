@@ -1,7 +1,8 @@
 var presentSeletedItem = null;
 var computer = {
   readyToPlay: false,
-  itemSelectorIndex: 0
+  itemSelectorIndex: 0,
+  itemName: null
 };
 
 // ENVIRONMENT SET UP
@@ -12,6 +13,9 @@ function setup(){
   scissors = new Model('scissors');
   paper = new Model('paper');
   rock = new Model('rock');
+  winObj = new Model('win');
+  loseObj = new Model('lose');
+  drawObj = new Model('draw');
   resetState();
   
 }
@@ -21,12 +25,20 @@ function draw() {
   pointLight(255, 255, 255,   windowWidth/2, windowHeight/1, 1);
   displaySelectedItem();
   computerPlay();
+
+// var fs = require('fs'); <<<<< LOOK IN THIS!
+// var files = fs.readdirSync('assets');
+// console.log(files);
+
+
 }
 
 function resetState(){	
   presentSeletedItem = null;
   computer.readyToPlay = false;
   computer.itemSelectorIndex = Math.floor(Math.random() * 3);
+  computerNumberToItem(computer.itemSelectorIndex);
+  console.log(computer.itemName);
   let buttons = document.getElementsByClassName("player-item");
   for (let i = 0; i < buttons.length-1; i++){
   let value = buttons[i].innerHTML
@@ -52,7 +64,7 @@ function resetGame(reset){
 
 function playHasBeenClicked(x){
   if (x == true && presentSeletedItem != null){
-    let buttons = document.getElementsByClassName("player-item");
+    let buttons = document.getElementsByClassName("player-item"); //Doesn't need 'x==true' as if the function is being called then it's going to equal true regardless.
     for (let i = 0; i < buttons.length; i++){
       buttons[i].setAttribute("onclick", "");
     }
@@ -75,22 +87,23 @@ function displaySelectedItem(){
 
 function displayGameResults() {
 
-  let compReult = computerNumberToItem(computer.itemSelectorIndex);
-
+  // compReult = computerNumberToItem(computer.itemSelectorIndex);
+  
   if (computer.readyToPlay) {
-	  if (compReult != presentSeletedItem) {
-	    if (compReult == "rock" && presentSeletedItem == "scissors") {
-	      displayLose();
-	    } else if (compReult == "paper" && presentSeletedItem == "rock") {
-	      displayLose();
-	    } else if (compReult == "scissors" && presentSeletedItem == "paper") {
-	      displayLose();
+	  if (computer.itemName != presentSeletedItem) {
+	    if (computer.itemName == rock && presentSeletedItem == scissors) {
+	      displayResult('lose');
+	    } else if (computer.itemName == paper && presentSeletedItem == rock) {
+	      displayResult('lose');
+	    } else if (computer.itemName == scissors && presentSeletedItem == paper) {
+	      displayResult('lose');
 	    } else {
-	      displayWin();
+	      displayResult('win');
 	    }
 	    
-	  } else if (compReult == presentSeletedItem) {
-	    background(169, 218, 229);
+	  } else if (computer.itemName == presentSeletedItem) {
+	    displayResult('draw');
+
 	  }
   } else {
   	background (255);
@@ -98,12 +111,23 @@ function displayGameResults() {
 
 }
 
-function displayWin(){
-  background(46, 211, 74);
-}
-
-function displayLose(){
-  background(221, 35, 63);
+function displayResult(result){
+  if (result == 'win'){
+	  background(46, 211, 74);
+	  // winObj.materialAndRotation();
+	  winObj.resultPositionRender();
+	  winObj.display();
+  } else if (result == 'lose') {
+  	  background(221, 35, 63);
+  	  // loseObj.materialAndRotation();
+  	  loseObj.resultPositionRender();
+  	  loseObj.display();
+  } else if (result == 'draw') {
+  	  background(169, 218, 229);
+  	  // drawObj.materialAndRotation();
+  	  drawObj.resultPositionRender();
+  	  drawObj.display();
+  }
 }
 
 // COMPUTER FUNCTIONS
@@ -111,7 +135,7 @@ function displayLose(){
 
 function computerPlay(){
   if (computer.readyToPlay) {
-    let i = computerNumberToItem(computer.itemSelectorIndex);
+    let i = computer.itemName;	
     i.computerPositionRender();
     i.materialAndRotation();
     i.display();
@@ -122,10 +146,13 @@ function computerNumberToItem(x) {
   let i = null;
   if (x == 0) {
     i = rock;
+    computer.itemName = i;
   } else if (x == 1){
     i = paper;
+    computer.itemName = i;
   } else if (x == 2){
     i = scissors;
+    computer.itemName = i;
   }
-  return i;
+  
 }

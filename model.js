@@ -20,6 +20,16 @@ class Model {
 	    translate(windowWidth/4, 0, 0);
 	}
 
+	resultPositionRender(){
+	  noStroke();
+	  normalMaterial();
+	  
+	  push();
+	  	translate(0, windowHeight/4*-1, 0);
+	  	rotateX(frameCount*0.05);
+
+	}
+
 	display(){
 		model(this.itemModel);
 		pop();
