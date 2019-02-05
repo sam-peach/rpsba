@@ -21,7 +21,6 @@ function setup(){
 }
 
 function draw() {
-  // background(170);
   background(242, 237, 123);
   displayGameResults();
   pointLight(255, 255, 255, windowWidth/2, windowHeight/1, 1);
@@ -37,6 +36,7 @@ function draw() {
 }
 
 function resetState(){	
+  background(242, 237, 123);
   presentSeletedItem = null;
   computer.readyToPlay = false;
   computer.itemSelectorIndex = Math.floor(Math.random() * 3);
@@ -49,8 +49,6 @@ function resetState(){
   }
   let playBtn = document.getElementsByClassName("play");
   playBtn[0].setAttribute("onclick", "playHasBeenClicked(true)")
-  background(226, 221, 108);
-  // background(255);
 }
 
 // USER INPUTS
@@ -104,12 +102,7 @@ function displayGameResults() {
 	    
 	  } else if (computer.itemName == presentSeletedItem) {
 	    displayResult('draw');
-
 	  }
-  } else {
-  	// background (255);
-  	// background(226, 221, 108);
-
   }
 
 }

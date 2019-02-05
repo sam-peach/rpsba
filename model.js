@@ -3,12 +3,15 @@ class Model {
 		this.itemModel = loadModel('assets/'+objectName+'.obj', true);
 	}
 
-	materialAndRotation(){
-	  // normalMaterial();
-	  ambientMaterial(69, 189, 193);
+	materialAndRotation(){	
+	  this.material();
 	  noStroke();
 	  rotateX(frameCount*0.05);
 	  rotateZ(frameCount*0.05);
+	}
+
+	material(){
+	  ambientMaterial(69, 189, 193);
 	}
 
 	playerPositionRender(){
@@ -23,10 +26,6 @@ class Model {
 
 	resultPositionRender(){
 	  noStroke();
-	  // normalMaterial();
-	  ambientMaterial(69, 189, 193);
-	  
-	  
 	  push();
 	  	translate(0, windowHeight/4*-1, 0);
 	  	rotateX(frameCount*0.05);
