@@ -4,7 +4,8 @@ class Model {
 	}
 
 	materialAndRotation(){
-	  normalMaterial();
+	  // normalMaterial();
+	  ambientMaterial(69, 189, 193);
 	  noStroke();
 	  rotateX(frameCount*0.05);
 	  rotateZ(frameCount*0.05);
@@ -22,7 +23,9 @@ class Model {
 
 	resultPositionRender(){
 	  noStroke();
-	  normalMaterial();
+	  // normalMaterial();
+	  ambientMaterial(69, 189, 193);
+	  
 	  
 	  push();
 	  	translate(0, windowHeight/4*-1, 0);
